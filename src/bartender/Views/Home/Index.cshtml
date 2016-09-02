@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<h1>Welcome to My Bar!</h1>
+<h2>Please select the Customer or Bartender program below</h2>
+
+<font size="10">
+    <p>
+        <ul>
+
+            <li>@Html.ActionLink("Customer", "Index", "drinkLists")</li>
+            <li>@Html.ActionLink("Batender", "Index", "orderDrinks")</li>
+        </ul>
+    </p>
+</font>
