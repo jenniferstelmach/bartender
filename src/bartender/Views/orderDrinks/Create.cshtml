@@ -1,50 +1,29 @@
-@model bartender.Models.orderDrink
+@model bartender.Models.orderDrinks
 
 @{
     ViewData["Title"] = "Create";
+
+    var availableDrinks = ViewBag.AvailableDrinks as IList<drinkList>;
+ 
 }
 
-<h2>Create</h2>
+<h2>Order Portal</h2>
 
-<form asp-action="Create">
-    <div class="form-horizontal">
-        <h4>orderDrink</h4>
-        <hr />
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-        <div class="form-group">
-            <label asp-for="CustName" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="CustName" class="form-control" />
-                <span asp-validation-for="CustName" class="text-danger" />
-            </div>
+<form>
+    <h4>Place your order here</h4>
+    <div class="form-group">
+        @Html.Label("Name:")
+        @Html.TextBox("CustName")
         </div>
-        <div class="form-group">
-            <label asp-for="Drink" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Drink" class="form-control" />
-                <span asp-validation-for="Drink" class="text-danger" />
-            </div>
-        </div>
-        <div class="form-group">
-            <label asp-for="Qty" class="col-md-2 control-label"></label>
-            <div class="col-md-10">
-                <input asp-for="Qty" class="form-control" />
-                <span asp-validation-for="Qty" class="text-danger" />
-            </div>
-            <div class="form-group">
-                <label asp-for="Filled" class="col-md-2 control-label"></label>
-                <div class="col-md-10">
-                    <input asp-for="Filled" class="form-control" />
-                    <span asp-validation-for="Filled" class="text-danger" />
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
-            </div>
-        </div>
-</div>
+    <div class="form-group">
+       
+        @Html.Label("Drink:")
+        @Html.DropDownListFor(v => v.Drink, new SelectList(availableDrinks, "ID","Drink"), "--Select Drink--")
+
+
+
+    </div>
+
 </form>
 
 <div>

@@ -80,7 +80,7 @@ namespace bartender.Data.Migrations
                     b.ToTable("drinkList");
                 });
 
-            modelBuilder.Entity("bartender.Models.orderDrink", b =>
+            modelBuilder.Entity("bartender.Models.orderDrinks", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd();
@@ -93,7 +93,7 @@ namespace bartender.Data.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("orderDrink");
+                    b.ToTable("orderDrinks");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole", b =>

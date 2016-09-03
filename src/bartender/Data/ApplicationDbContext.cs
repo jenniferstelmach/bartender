@@ -25,6 +25,6 @@ namespace bartender.Data
 
         public DbSet<drinkList> drinkList { get; set; }
 
-        public DbSet<orderDrink> orderDrink { get; set; }
+        public DbSet<orderDrinks> orderDrink { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using bartender.Data;
 using bartender.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace bartender.Views.CocktailMenu
 {
@@ -42,6 +43,10 @@ namespace bartender.Views.CocktailMenu
         // GET: orderDrinks/Create
         public IActionResult Create()
         {
+            //TO DO: change to create a new order
+            var availableDrinks = _context.drinkList.ToList();
+            ViewBag.AvailableDrinks = availableDrinks;
+            //ViewBag.AvailableDrinks = new SelectList(dl.Category, "Category", dl.Drink, "Drinks");
             return View();
         }
 
@@ -50,15 +55,17 @@ namespace bartender.Views.CocktailMenu
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,CustName,Drink,Qty,Filled")] orderDrink orderDrink)
+        public async Task<IActionResult> Create([Bind("CustName,Drink,Qty")] orderDrinks orderDrinks)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(orderDrink);
+                _context.Add(orderDrinks);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            return View(orderDrink);
+
+            //ViewBag.Category = new SelectList(_context)
+            return View(orderDrinks);
         }
 
         // GET: orderDrinks/Edit/5
@@ -82,9 +89,9 @@ namespace bartender.Views.CocktailMenu
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,CustName,Drink,Qty,Filled")] orderDrink orderDrink)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,CustName,Drink,Qty,Filled")] orderDrinks orderDrinks)
         {
-            if (id != orderDrink.ID)
+            if (id != orderDrinks.ID)
             {
                 return NotFound();
             }
@@ -93,12 +100,12 @@ namespace bartender.Views.CocktailMenu
             {
                 try
                 {
-                    _context.Update(orderDrink);
+                    _context.Update(orderDrinks);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!orderDrinkExists(orderDrink.ID))
+                    if (!orderDrinkExists(orderDrinks.ID))
                     {
                         return NotFound();
                     }
@@ -109,7 +116,7 @@ namespace bartender.Views.CocktailMenu
                 }
                 return RedirectToAction("Index");
             }
-            return View(orderDrink);
+            return View(orderDrinks);
         }
 
         // GET: orderDrinks/Delete/5

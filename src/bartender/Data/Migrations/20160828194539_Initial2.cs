@@ -10,7 +10,7 @@ namespace bartender.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "orderDrink",
+                name: "orderDrinks",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
@@ -21,14 +21,14 @@ namespace bartender.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_orderDrink", x => x.ID);
+                    table.PrimaryKey("PK_orderDrinks", x => x.ID);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "orderDrink");
+                name: "orderDrinks");
         }
     }
 }

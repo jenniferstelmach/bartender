@@ -10,7 +10,7 @@ namespace bartender.Data.Migrations
         {
             migrationBuilder.AddColumn<bool>(
                 name: "Filled",
-                table: "orderDrink",
+                table: "orderDrinks",
                 nullable: false,
                 defaultValue: false);
         }
@@ -19,7 +19,7 @@ namespace bartender.Data.Migrations
         {
             migrationBuilder.DropColumn(
                 name: "Filled",
-                table: "orderDrink");
+                table: "orderDrinks");
         }
     }
 }

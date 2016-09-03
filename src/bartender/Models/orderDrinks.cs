@@ -2,7 +2,7 @@
 
 namespace bartender.Models
 {
-    public class orderDrink
+    public class orderDrinks
     {
         public int ID { get; set; }
         public string CustName { get; set; }
@@ -10,4 +10,5 @@ namespace bartender.Models
         public int Qty { get; set; }
         public Boolean Filled { get; set; }
     }
+
 }
