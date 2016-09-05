@@ -1,0 +1,62 @@
+@model IEnumerable<bartender.Models.orderDrinks>
+
+
+@{
+    ViewData["Title"] = "Fill orders";
+}
+
+<h2>Fill Drink Orders</h2>
+
+<h3>
+    <a asp-action="Update">Refresh List</a>
+</h3>
+
+@using (Html.BeginForm("Update", "orderDrinks", FormMethod.Post))
+{
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CustName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Drink)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Qty)
+                    </th>
+                    <th>
+
+                        @Html.DisplayNameFor(model => model.Filled)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CustName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Drink)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Qty)
+                        </td>
+                        <td>
+                            @Html.CheckBoxFor(modelItem => item.Filled, new { onclick = "edit(orderDrinks)" })
+
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+}

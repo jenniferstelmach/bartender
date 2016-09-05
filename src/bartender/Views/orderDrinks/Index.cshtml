@@ -7,51 +7,44 @@
 
 <h2>Pending Drink Orders</h2>
 
+<h3>
+    <a asp-action="Index">Refresh List</a>
+</h3>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+@*@using (Html.BeginForm("fillOrder", "orderDrinks", FormMethod.Post))*@
+
 <table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.CustName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Drink)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Qty)
-            </th>
-            <th>
-               
-                @Html.DisplayNameFor(model => model.Filled)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.CustName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Drink)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Qty)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Filled)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
 
-        </tr>
+    <tbody>
+@foreach (var item in Model)
+{
+    @Html.HiddenFor(Model => item.ID)
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CustName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Drink)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Qty)
+        </td>
+        <td>
+            @*@Html.DisplayFor(modelItem => item.Filled)*@
+            @Html.EditorFor(modelItem => item.Filled)
+            @*@Html.CheckBoxFor(modelItem => item.Filled)*@
+            @*<input type="submit" value="Ready for Pickup" id="item.id"/>*@
+            <a asp-action="FillOrder" asp-route-id="@item.ID">Fill Order</a>
+
+        </td>
+        <td>
+            <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+            <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+            <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+        </td>
+
+    </tr>
 }
     </tbody>
+
 </table>

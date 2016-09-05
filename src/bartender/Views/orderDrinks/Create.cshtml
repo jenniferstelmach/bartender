@@ -4,31 +4,37 @@
     ViewData["Title"] = "Create";
 
     var availableDrinks = ViewBag.AvailableDrinks as IList<drinkList>;
- 
+
 }
 
+
 <h2>Order Portal</h2>
+<br />
 
-<form>
-    <h4>Place your order here</h4>
-    <div class="form-group">
-        @Html.Label("Name:")
-        @Html.TextBox("CustName")
-        </div>
-    <div class="form-group">
-       
-        @Html.Label("Drink:")
-        @Html.DropDownListFor(v => v.Drink, new SelectList(availableDrinks, "ID","Drink"), "--Select Drink--")
-
-
-
+@using (Html.BeginForm("create", "orderDrinks", FormMethod.Post))
+{
+    <section class="form-field">
+        <h4>Place your order here</h4><br />
+        <p>
+            @Html.Label("Name:", null, new { style = "width:100px" })
+            @Html.TextBox("CustName")
+        </p>
+        <p>
+            @Html.Label("Drink:", null, new { style = "width:100px" })
+            @Html.DropDownListFor(v => v.Drink, new SelectList(availableDrinks, "Drink", "Drink"), "--Select Drink--")
+        </p>
+        <p>
+            @Html.Label("Quantity:", null, new { style = "width:100px" })
+            @Html.Editor("Qty")
+        </p>
+            <br />
+            <input type="submit" value="Submit Order" />
+    </section>
+}
+    <div>
+        <a asp-action="Index">Back to List</a>
     </div>
 
-</form>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

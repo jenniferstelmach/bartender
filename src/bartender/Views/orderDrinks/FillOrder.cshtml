@@ -1,0 +1,24 @@
+@model bartender.Models.orderDrinks
+
+@{
+    ViewData["Title"] = "FillOrder";
+
+}
+
+<h2>Fill Order</h2>
+
+<p>
+    reached the fill order view
+    <strong>@Model.ID</strong>
+</p>
+
+@using (Html.BeginForm())
+{
+    <p>
+            <input type="submit" value="FillOrder" />
+    </p>
+    <p>
+        @Html.ActionLink("Back to list", "Index")
+    </p>
+
+}
