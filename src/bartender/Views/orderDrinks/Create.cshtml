@@ -9,7 +9,7 @@
 
 
 <h2>Order Portal</h2>
-<br />
+
 
 @using (Html.BeginForm("create", "orderDrinks", FormMethod.Post))
 {
@@ -27,11 +27,13 @@
             @Html.Label("Quantity:", null, new { style = "width:100px" })
             @Html.Editor("Qty")
         </p>
-            <br />
+        <br />
             <input type="submit" value="Submit Order" />
+
     </section>
 }
     <div>
+        <br />  
         <a asp-action="Index">Back to List</a>
     </div>
 

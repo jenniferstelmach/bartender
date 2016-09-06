@@ -6,19 +6,23 @@
 }
 
 <h2>Fill Order</h2>
-
-<p>
-    reached the fill order view
-    <strong>@Model.ID</strong>
-</p>
-
-@using (Html.BeginForm())
-{
+<form asp-action="FillOrder">
     <p>
-            <input type="submit" value="FillOrder" />
-    </p>
-    <p>
-        @Html.ActionLink("Back to list", "Index")
+        Please confirm that order number <strong>@Model.ID</strong> is complete
+        
     </p>
 
+    @using (Html.BeginForm())
+    {
+        <p>
+                    <input type="submit" value="Fill Order" />
+            </p>
+
+
+    }
+</form>
+<a asp-action="Index">Back to List</a>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

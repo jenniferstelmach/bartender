@@ -30,12 +30,8 @@
             @Html.DisplayFor(modelItem => item.Qty)
         </td>
         <td>
-            @*@Html.DisplayFor(modelItem => item.Filled)*@
-            @Html.EditorFor(modelItem => item.Filled)
-            @*@Html.CheckBoxFor(modelItem => item.Filled)*@
-            @*<input type="submit" value="Ready for Pickup" id="item.id"/>*@
+            @Html.DisplayFor(modelItem => item.Filled)
             <a asp-action="FillOrder" asp-route-id="@item.ID">Fill Order</a>
-
         </td>
         <td>
             <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |

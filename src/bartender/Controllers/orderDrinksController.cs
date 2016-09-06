@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using bartender.Data;
 using bartender.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using bartender.Data.Migrations;
 
 namespace bartender.Views.CocktailMenu
 {
@@ -20,6 +21,7 @@ namespace bartender.Views.CocktailMenu
         // GET: orderDrinks
         public async Task<IActionResult> Index()
         {
+            
             return View(await _context.orderDrink.ToListAsync());
         }
 
@@ -60,7 +62,8 @@ namespace bartender.Views.CocktailMenu
             {
                 _context.Add(orderDrinks);
                 _context.SaveChanges();
-                return RedirectToAction("Index");
+                
+                return RedirectToAction("Create");
             }
 
             //ViewBag.Category = new SelectList(_context)
@@ -68,29 +71,24 @@ namespace bartender.Views.CocktailMenu
         }
 
         // GET: orderDrinks/FillOrder/5
-        public async Task<IActionResult> FillOrder(int? id)
+        public ActionResult FillOrder(int? id)
         {
             if (id == null)
             {
-                //return NotFound();
-                return Content("drink id not found");
+                return NotFound();
+                //return Content("drink id not found");
             }
-            var drink = await _context.orderDrink.SingleOrDefaultAsync(m => m.ID == id);
 
-            //orderDrinks drinkOrder = _context.orderDrink;
+            var orderDrink = _context.orderDrink.SingleOrDefault(m => m.ID == id);
+            orderDrink.Filled = true;
 
-            //var orderDrinks = _context.orderDrink.Where(m => m.ID == id);
-            //orderDrinks drink = _context.orderDrink.Where(m => m.ID == id);
 
-            //if (orderDrinks == null)
-            //{
-            //    //return NotFound();
-            //    return Content("drink not found");
-            //}
-
-            //return Content("reached the GET method for fill Order");
-
-            return View(drink);
+            if (orderDrink == null)
+            {
+                return NotFound();
+            }
+            return View(orderDrink);
+            
         }
 
         // POST: orderDrinks/FillOrder/5
@@ -98,31 +96,21 @@ namespace bartender.Views.CocktailMenu
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult FillOrder(int id, [Bind("ID,Filled")] orderDrinks orderDrinks)
+        public ActionResult FillOrder(int id)
         {
-            //if (id != orderDrinks.ID)
-            //{
-            //    return NotFound();
-            //}
+            var orderDrink = _context.orderDrink.SingleOrDefault(m => m.ID == id);
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    //_context.Update(orderDrinks);
-                    //_context.SaveChanges();
-                    _context.Entry(orderDrinks).State = EntityState.Modified;
-
-                    //orderDrinks.Filled = true;
-                   _context.Entry(orderDrinks).Property(d => d.Filled).IsModified = true;
-
+                    orderDrink.Filled = true;
+                    _context.orderDrink.Update(orderDrink);
                     _context.SaveChanges();
-                    
-                    return RedirectToAction("Index");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!orderDrinkExists(orderDrinks.ID))
+                    if (!orderDrinkExists(orderDrink.ID))
                     {
                         return NotFound();
                     }
@@ -131,11 +119,11 @@ namespace bartender.Views.CocktailMenu
                         throw;
                     }
                 }
-               
 
-                //return RedirectToAction("Index");
+
+                return RedirectToAction("Index");
             }
-            return View(orderDrinks);
+            return View(orderDrink);
         }
 
 
